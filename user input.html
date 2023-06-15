@@ -1,0 +1,103 @@
+<!DOCTYPE html> //Zyriyah Stoker
+<html>
+<head>
+    <title>String Manipulation</title> 
+    <style>
+        body {
+            background-color: purple;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        
+        form {
+            width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: black;
+            border-radius: 10px;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: purple;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        #message {
+            display: none;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: purple;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <form id="inputForm">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" required>
+        
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" required>
+        
+        <label for="zipCode">Zip Code:</label>
+        <input type="text" id="zipCode" required>
+        
+        <input type="submit" value="Submit">
+    </form>
+
+    <div id="message"></div>
+
+    <script>
+        // Function to handle form submission
+        function submitForm(event) {
+            event.preventDefault(); // Prevents the form from submitting and refreshing the page
+            
+            // Get the input values
+            var firstName = document.getElementById('firstName').value;
+            var lastName = document.getElementById('lastName').value;
+            var zipCode = document.getElementById('zipCode').value;
+            
+            // Combine the first name and last name
+            var fullName = firstName + ' ' + lastName;
+            
+            // Check if the combined string has more than 20 characters
+            if (fullName.length > 20) {
+                showError("Combined name should not exceed 20 characters.");
+                return; // Exit the function if invalid
+            }
+            
+            // Check if the zip code contains exactly 5 digits
+            if (!/^\d{5}$/.test(zipCode)) {
+                showError("Invalid zip code. Please enter 5 digits.");
+                return; // Exit the function if invalid
+            }
+            
+            // Show the secret message
+            var message = "Congratulations, you found the secret message!";
+            document.getElementById("message").textContent = message;
+            document.getElementById("message").style.display = "block";
+        }
+        
+        // Function to display error messages
+        function showError(errorMessage) {
+            document.getElementById("message").textContent = errorMessage;
+            document.getElementById("message").style.display = "block";
+        }
+        
+        // Add event listener to the form submission
+        document.getElementById('inputForm').addEventListener('submit', submitForm);
+    </script>
+</body>
+</html>
